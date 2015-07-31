@@ -7,8 +7,6 @@ import android.util.Pair;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.backend.myApi.MyApi;
 
 import java.io.IOException;
@@ -30,15 +28,19 @@ public class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, Strin
     protected String doInBackground(Pair<Context, String>... params)  {
 
         if (myApiService == null)  {
+//            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+//                    new AndroidJsonFactory(), null)
+//                    .setRootUrl("http://192.168.2.139:8080/_ah/api/")
+//                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+//                        @Override
+//                        public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
+//                            abstractGoogleClientRequest.setDisableGZipContent(true);
+//                        }
+//                    });
+
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
-                    .setRootUrl("http://192.168.2.139:8080/_ah/api/")
-                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                        @Override
-                        public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                            abstractGoogleClientRequest.setDisableGZipContent(true);
-                        }
-                    });
+                    .setRootUrl("https://udacity-jokes.appspot.com/_ah/api");
 
             myApiService = builder.build();
         }
