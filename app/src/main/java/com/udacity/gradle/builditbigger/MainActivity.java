@@ -3,15 +3,15 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.udacity.gradle.jokeactivity.JokeActivity;
-import com.udacity.gradle.jokes.Joker;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements JokesAsyncTask.AsyncResponse {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +42,20 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void tellJoke(View view){
-        String joke = Joker.getJoke();
+    public void tellJoke(View view)  {
+
+        JokesAsyncTask asyncTask = new JokesAsyncTask();
+        asyncTask.mCaller = this;
+        asyncTask.execute(new Pair<>(getApplicationContext(), ""));
+
+    }
+
+    @Override
+    public void processFinish(String output) {
 
         Intent intent = new Intent(this, JokeActivity.class);
         intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(JokeActivity.JOKE_EXTRA, joke);
+        intent.putExtra(JokeActivity.JOKE_EXTRA, output);
         startActivity(intent);
-
-//        String joke = "Ha";
-//        Toast.makeText(this, joke, Toast.LENGTH_LONG).show();
     }
-
-
 }
