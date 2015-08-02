@@ -28,6 +28,7 @@ public class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, Strin
     protected String doInBackground(Pair<Context, String>... params)  {
 
         if (myApiService == null)  {
+
 //            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
 //                    new AndroidJsonFactory(), null)
 //                    .setRootUrl("http://192.168.2.139:8080/_ah/api/")
@@ -48,7 +49,7 @@ public class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, Strin
         context = params[0].first;
 
         try  {
-            return myApiService.sayHi().execute().getData();
+            return myApiService.tellJoke().execute().getData();
 
         } catch (IOException e)  {
             Log.e(TAG, "Error: " + e.getMessage());

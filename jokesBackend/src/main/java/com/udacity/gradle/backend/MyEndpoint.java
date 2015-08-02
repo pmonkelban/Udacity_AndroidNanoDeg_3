@@ -18,11 +18,11 @@ import com.udacity.gradle.jokes.Joker;
 public class MyEndpoint {
 
     /**
-     * A simple endpoint method that takes a name and says Hi back
+     * A simple endpoint method that returns an object containing a joke.
      */
-    @ApiMethod(name = "sayHi")
-    public MyBean sayHi() {
-        MyBean response = new MyBean();
+    @ApiMethod(name = "tellJoke")
+    public JokeBean tellJoke() {
+        JokeBean response = new JokeBean();
         String joke = Joker.getJoke();
         response.setData(joke);
 

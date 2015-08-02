@@ -55,10 +55,4 @@ public class Joker {
             "A police recruit was asked during the exam, \"What would you do if you had to arrest your own mother?\" He said, \"Call for backup.\""
     };
 
-    public static void main(String[] args) {
-
-        for (int i = 0; i < 10; i++)  {
-            System.out.println(getJoke());
-        }
-    }
 }

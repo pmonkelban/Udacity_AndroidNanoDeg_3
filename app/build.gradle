@@ -18,6 +18,16 @@ android {
     }
     productFlavors {
     }
+
+    // Fixes error "Duplicate files copied in APK LICENSE.txt
+    packagingOptions {
+        exclude 'NOTICE.txt'
+        exclude 'LICENSE.txt'
+    }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -27,4 +37,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:7.3.0'
     compile project(':javajokes')
     compile project(':jokeactivity')
+
+    androidTestCompile 'junit:junit:4.11'
 }
