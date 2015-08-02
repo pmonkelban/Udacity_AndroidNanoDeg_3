@@ -37,8 +37,10 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         */
         String joke = jokeRecipient.getJoke();
 
+        System.out.println("Joke: " + joke);
+
         assertTrue((joke != null) && (joke.length() > 0));
-        
+
         // Make sure we didn't get the default "Sorry,  Jokes not available..."
         assertFalse(
                 getContext().getResources().getString(R.string.jokes_unavailable).equals(joke));
