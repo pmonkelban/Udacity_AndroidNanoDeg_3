@@ -4,8 +4,15 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.util.Pair;
 
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
+import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+import com.udacity.gradle.backend.myApi.MyApi;
+
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -17,8 +24,22 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         super(Application.class);
     }
 
+    /*
+    * Builder which connects to the Google Cloud Engine running on the localhost.
+    */
+    private MyApi.Builder mBuilder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+            new AndroidJsonFactory(), null)
+            .setRootUrl("http://192.168.2.139:8080/_ah/api/")
+            .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+                @Override
+                public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
+                        throws IOException {
+                    abstractGoogleClientRequest.setDisableGZipContent(true);
+                }
+            });
+
     @Test
-    public void testJokesAsyncTask() throws Exception  {
+    public void testJokesAsyncTask() throws Exception {
 
         // This object will receive the result of the AsyncTask
         JokesAsyncTaskRecipient jokeRecipient = new JokesAsyncTaskRecipient();
@@ -27,7 +48,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         * Create an AsyncTask to get a joke.  When the task completes, it
         * will call jokeRecipient.processFinish().
         */
-        JokesAsyncTask asyncTask = new JokesAsyncTask();
+        JokesAsyncTask asyncTask = new JokesAsyncTask(mBuilder);
         asyncTask.mCaller = jokeRecipient;
         asyncTask.execute(new Pair<>(getContext(), ""));
 
@@ -46,7 +67,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
                 getContext().getResources().getString(R.string.jokes_unavailable).equals(joke));
     }
 
-    private class JokesAsyncTaskRecipient implements JokesAsyncTask.AsyncResponse  {
+    private class JokesAsyncTaskRecipient implements JokesAsyncTask.AsyncResponse {
 
         /*
         * This CountDownLatch will allow us to wait until processFinish()

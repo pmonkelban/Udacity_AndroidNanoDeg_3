@@ -23,7 +23,7 @@ android {
         free {
             applicationId = "com.udacity.gradle.builditbigger.free"
         }
-        paid  {
+        paid {
             applicationId = "com.udacity.gradle.builditbigger.paid"
         }
     }
@@ -33,6 +33,7 @@ android {
         exclude 'NOTICE.txt'
         exclude 'LICENSE.txt'
     }
+    sourceSets { main { java.srcDirs = ['src/main/java', 'src/test/java'] } }
 }
 
 repositories {
@@ -50,4 +51,5 @@ dependencies {
     compile project(':jokeactivity')
 
     androidTestCompile 'junit:junit:4.11'
+
 }

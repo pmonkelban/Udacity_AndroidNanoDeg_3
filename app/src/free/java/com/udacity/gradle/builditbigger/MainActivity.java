@@ -7,6 +7,7 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -20,6 +21,7 @@ public class MainActivity extends ActionBarActivity implements JokesAsyncTask.As
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
 
     InterstitialAd mInterstitialAd;
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,10 @@ public class MainActivity extends ActionBarActivity implements JokesAsyncTask.As
         });
 
         requestNewInterstitial();
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.GONE);  // Should be gone, but just in case.
+
     }
 
 
@@ -66,6 +72,10 @@ public class MainActivity extends ActionBarActivity implements JokesAsyncTask.As
 
     public void tellJokeButtonPressed(View view) {
 
+        // Begin showing the progress bar.
+        mProgressBar.setVisibility(View.VISIBLE);
+
+        // Show the interstitial ad if available.
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         } else {
@@ -88,6 +98,10 @@ public class MainActivity extends ActionBarActivity implements JokesAsyncTask.As
         intent.setAction(Intent.ACTION_SEND);
         intent.putExtra(JokeActivity.JOKE_EXTRA, output);
         startActivity(intent);
+
+        // Hide the progress bar once the new Activity is started.
+        mProgressBar.setVisibility(View.GONE);
+
     }
 
     private void requestNewInterstitial()  {
