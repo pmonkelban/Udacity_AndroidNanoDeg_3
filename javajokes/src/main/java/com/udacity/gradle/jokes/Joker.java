@@ -42,7 +42,7 @@ public class Joker {
             "Man that's Ludacris I can't believe I got fired from the calendar factory. All I did was take a day off.",
             "I wonder if earth makes fun of other planets for having no life.",
             "It's been scientifically proven that too many birthdays can kill you!",
-            "Don't tell secrets in a cornfield. There a too many ears.",
+            "Don't tell secrets in a cornfield. There are too many ears.",
             "Why do we cook bacon and bake cookies?",
             "Why do you drive down a parkway but park in a driveway?",
             "fi yuo cna raed tihs whit no porlbem, yuo aer smrat. Shaer ti whit yuor fienrds.",
