@@ -20,6 +20,17 @@ import java.util.concurrent.CountDownLatch;
  */
 public class ApplicationTest extends ApplicationTestCase<Application> {
 
+    /*
+    * Need to change this to the IP address of the host.
+    * Commented out are various options.  The first is the IP address of my host machine.
+    * The second is the host IP address when using the Android Emulator
+    * The third is the host IP address when using Genymotion.
+    */
+
+    //    private static final String APP_ENGINE_URL = "http://192.168.2.139:8080/_ah/api/";
+    //    private static final String APP_ENGINE_URL = "http://10.0.2.2:8080/_ah/api/";
+    private static final String APP_ENGINE_URL = "http://10.0.3.2:8080/_ah/api/";
+
     public ApplicationTest() {
         super(Application.class);
     }
@@ -29,7 +40,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     */
     private MyApi.Builder mBuilder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
             new AndroidJsonFactory(), null)
-            .setRootUrl("http://192.168.2.139:8080/_ah/api/")
+            .setRootUrl(APP_ENGINE_URL)
             .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                 @Override
                 public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
