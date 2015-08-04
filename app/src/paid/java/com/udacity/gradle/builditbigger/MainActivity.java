@@ -69,8 +69,9 @@ public class MainActivity extends ActionBarActivity implements JokesAsyncTask.As
     }
 
     private void tellJoke() {
-        JokesAsyncTask asyncTask = new JokesAsyncTask(mBuilder);
-        asyncTask.mCaller = this;
+        JokesAsyncTask asyncTask = new JokesAsyncTask();
+        asyncTask.setBuilder(mBuilder);
+        asyncTask.setCaller(this);
         asyncTask.execute(new Pair<>(getApplicationContext(), ""));
 
     }

@@ -12,6 +12,9 @@ import android.widget.ProgressBar;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.udacity.gradle.backend.myApi.MyApi;
 import com.udacity.gradle.jokeactivity.JokeActivity;
 
 
@@ -22,6 +25,13 @@ public class MainActivity extends ActionBarActivity implements JokesAsyncTask.As
 
     InterstitialAd mInterstitialAd;
     ProgressBar mProgressBar;
+
+    /*
+     * Builder to connect to the Google Cloud Engine.
+     */
+    MyApi.Builder mBuilder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+            new AndroidJsonFactory(), null)
+            .setRootUrl("https://udacity-jokes.appspot.com/_ah/api");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +96,8 @@ public class MainActivity extends ActionBarActivity implements JokesAsyncTask.As
 
     private void tellJoke() {
         JokesAsyncTask asyncTask = new JokesAsyncTask();
-        asyncTask.mCaller = this;
+        asyncTask.setBuilder(mBuilder);
+        asyncTask.setCaller(this);
         asyncTask.execute(new Pair<>(getApplicationContext(), ""));
 
     }
@@ -104,7 +115,7 @@ public class MainActivity extends ActionBarActivity implements JokesAsyncTask.As
 
     }
 
-    private void requestNewInterstitial()  {
+    private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
                 .build();

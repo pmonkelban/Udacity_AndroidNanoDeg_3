@@ -11,23 +11,26 @@ import java.io.IOException;
 
 public class JokesAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
 
-    private final MyApi.Builder mBuilder;
+    private static final String TAG = JokesAsyncTask.class.getCanonicalName();
+
+    private MyApi.Builder mBuilder;
+    private AsyncResponse mCaller = null;
+
+    private static MyApi myApiService = null;
+    private Context context;
 
 
     public interface AsyncResponse  {
         void processFinish(String output);
     }
 
-    public JokesAsyncTask(MyApi.Builder builder)  {
+    public void setBuilder(MyApi.Builder builder)  {
         mBuilder = builder;
     }
 
-    private static final String TAG = JokesAsyncTask.class.getCanonicalName();
-
-    public AsyncResponse mCaller = null;
-
-    private static MyApi myApiService = null;
-    private Context context;
+    public void setCaller(AsyncResponse caller)  {
+        mCaller = caller;
+    }
 
     @Override
     protected String doInBackground(Pair<Context, String>... params)  {

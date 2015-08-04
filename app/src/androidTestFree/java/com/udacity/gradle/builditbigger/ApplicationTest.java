@@ -48,8 +48,9 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         * Create an AsyncTask to get a joke.  When the task completes, it
         * will call jokeRecipient.processFinish().
         */
-        JokesAsyncTask asyncTask = new JokesAsyncTask(mBuilder);
-        asyncTask.mCaller = jokeRecipient;
+        JokesAsyncTask asyncTask = new JokesAsyncTask();
+        asyncTask.setBuilder(mBuilder);
+        asyncTask.setCaller(jokeRecipient);
         asyncTask.execute(new Pair<>(getContext(), ""));
 
         /*

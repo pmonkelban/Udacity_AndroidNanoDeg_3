@@ -10,6 +10,9 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+        testFunctionalTest true
     }
 
     buildTypes {
@@ -50,6 +53,6 @@ dependencies {
     compile project(':javajokes')
     compile project(':jokeactivity')
 
-    androidTestCompile 'junit:junit:4.11'
+    androidTestCompile 'junit:junit:4.12'
 
 }
